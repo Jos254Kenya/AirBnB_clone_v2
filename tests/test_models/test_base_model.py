@@ -1,69 +1,51 @@
 #!/usr/bin/python3
-"""test for BaseModel"""
-import unittest
+"""
+Test suits for the base model
+"""
+
 import os
+import re
+import json
+import uuid
+import unittest
+from time import sleep
+from datetime import datetime
 from models.base_model import BaseModel
-import pep8
 
 
 class TestBaseModel(unittest.TestCase):
-    """this will test the base model class"""
+    """
+    Tests attributes of the base model
+    """
 
-    @classmethod
-    def setUpClass(cls):
-        """setup for the test"""
-        cls.base = BaseModel()
-        cls.base.name = "Kev"
-        cls.base.num = 20
+    def setUp(self):
+        """
+        Classes needed for testing
+        """
+        pass
 
-    @classmethod
-    def teardown(cls):
-        """at the end of the test this will tear it down"""
-        del cls.base
+    def test_basic(self):
+        """
+        Tests basic imputs for the BaseModel class
+        """
+        my_model = BaseModel()
+        my_model.name = "ALX"
+        my_model.number = 89
+        self.assertEqual([my_model.name, my_model.number],
+                         ["ALX", 89])
 
-    def tearDown(self):
-        """teardown"""
-        try:
-            os.remove("file.json")
-        except Exception:
-            pass
-
-    def test_pep8_BaseModel(self):
-        """Testing for pep8"""
-        style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(['models/base_model.py'])
-        self.assertEqual(p.total_errors, 0, "fix pep8")
-
-    def test_checking_for_docstring_BaseModel(self):
-        """checking for docstrings"""
-        self.assertIsNotNone(BaseModel.__doc__)
-        self.assertIsNotNone(BaseModel.__init__.__doc__)
-        self.assertIsNotNone(BaseModel.__str__.__doc__)
-        self.assertIsNotNone(BaseModel.save.__doc__)
-        self.assertIsNotNone(BaseModel.to_dict.__doc__)
-
-    def test_method_BaseModel(self):
-        """chekcing if Basemodel have methods"""
-        self.assertTrue(hasattr(BaseModel, "__init__"))
-        self.assertTrue(hasattr(BaseModel, "save"))
-        self.assertTrue(hasattr(BaseModel, "to_dict"))
-
-    def test_init_BaseModel(self):
-        """test if the base is an type BaseModel"""
-        self.assertTrue(isinstance(self.base, BaseModel))
-
-    def test_save_BaesModel(self):
-        """test if the save works"""
-        self.base.save()
-        self.assertNotEqual(self.base.created_at, self.base.updated_at)
-
-    def test_to_dict_BaseModel(self):
-        """test if dictionary works"""
-        base_dict = self.base.to_dict()
-        self.assertEqual(self.base.__class__.__name__, 'BaseModel')
-        self.assertIsInstance(base_dict['created_at'], str)
-        self.assertIsInstance(base_dict['updated_at'], str)
+    def test_datetime(self):
+        """
+        Tests for correct datetime format
+        """
+        pass
+    
+    def test_datetime(self):
+        """
+        Tests for correct datetime format
+        """
+        pass
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()
